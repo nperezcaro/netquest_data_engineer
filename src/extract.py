@@ -1,6 +1,10 @@
 import os
 import polars as pl
 
+from src.utils import get_logger
+
+logger = get_logger(name="EXTRACT")
+
 
 def get_df_from_csv(file_path: str, separator: str = ";") -> pl.DataFrame:
     """
@@ -17,5 +21,7 @@ def get_df_from_csv(file_path: str, separator: str = ";") -> pl.DataFrame:
         FileNotFoundError: if the provided path leads to a file that does not exist.
     """
     if not os.path.exists(path=file_path):
-        raise FileNotFoundError(f"File not found: {file_path}")
+        e = f"File not found: {file_path}"
+        logger.error(e)
+        raise FileNotFoundError(e)
     return pl.read_csv(source=file_path, separator=separator)

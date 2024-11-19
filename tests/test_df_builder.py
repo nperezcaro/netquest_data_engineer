@@ -16,4 +16,5 @@ def test_load_valid_csv(valid_csv):
 
 
 def test_file_not_found():
-    assert get_df_from_csv(file_path="non_existing_file.csv") == FileNotFoundError
+    with pytest.raises(FileNotFoundError):
+        get_df_from_csv(file_path="non_existing_file.csv")

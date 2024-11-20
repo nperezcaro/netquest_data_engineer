@@ -1,5 +1,6 @@
 import os
 import polars as pl
+from typing import Tuple, Dict
 
 from src.utils import get_logger
 
@@ -25,3 +26,30 @@ def get_df_from_csv(file_path: str, separator: str = ";") -> pl.DataFrame:
         logger.error(e)
         raise FileNotFoundError(e)
     return pl.read_csv(source=file_path, separator=separator)
+
+
+def filter_and_get_dict(df: pl.DataFrame, field_name: str) -> Dict[str, str]:
+    filtered_df = df.filter(pl.col("Field") == field_name)
+    return {row["SoftwareA"]: row["SoftwareB"] for row in filtered_df.to_dicts()}
+
+
+def get_mappings_dict(
+    df: pl.DataFrame,
+) -> Tuple[Dict[str, str], Dict[str, str], Dict[str, str]]:
+    required_columns = ["Field", "SoftwareA", "SoftwareB"]
+
+    if df.is_empty():
+        error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    if not all(column in df.columns for column in required_columns):
+        error_message = f"Provided Dataframe must contain columns: {required_columns}"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    channel_mapping = filter_and_get_dict(df=df, field_name="Channel")
+    language_mapping = filter_and_get_dict(df=df, field_name="Language")
+    customfields_mapping = filter_and_get_dict(df=df, field_name="CustomFields")
+
+    return channel_mapping, language_mapping, customfields_mapping

@@ -51,3 +51,30 @@ def map_non_custom_fields_columns(
             pl.col("Language").replace(old=language_dict).alias("LanguageB"),
         ]
     )
+
+
+def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.DataFrame:
+    required_column = ["CustomFields"]
+
+    if df.is_empty():
+        error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    if not all(column in df.columns for column in required_column):
+        error_message = f"Provided Dataframe must contain column: {required_column}"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    if not is_valid(mapping_dict):
+        error_message = "CustomField dict should be a non-empty dict of strings"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    return df.with_columns(
+        df["CustomFields"]
+        .str.split(";")
+        .list.eval(pl.element().replace(old=mapping_dict))
+        .list.join(";")
+        .alias("CustomFieldsB")
+    )

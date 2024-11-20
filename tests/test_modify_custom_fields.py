@@ -58,3 +58,15 @@ def test_empty_df(custom_fields_mapping):
 
     with pytest.raises(ValueError):
         map_custom_fields(df=df, mapping_dict=custom_fields_mapping)
+
+
+def test_invalid_dict(input_df):
+    invalid_dict = {
+        1: "area=Accounting",
+        "Area=finance": "area=Finance",
+        "Area=customer": "area=Customer_Care",
+        "Premium=premium-user": "premium=VIP_User",
+    }
+
+    with pytest.raises(ValueError):
+        map_custom_fields(df=input_df, mapping_dict=invalid_dict)

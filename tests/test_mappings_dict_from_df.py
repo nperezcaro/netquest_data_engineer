@@ -44,3 +44,10 @@ def test_dict_build(mappings_df):
         expected_language_dict,
         excepted_customfields_dict,
     )
+
+
+def test_empty_df():
+    df = pl.DataFrame()
+
+    with pytest.raises(ValueError):
+        get_mappings_dict(df=df)

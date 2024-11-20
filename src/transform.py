@@ -22,9 +22,11 @@ def map_non_custom_fields_columns(
         raise ValueError(error_message)
 
     if not is_valid(channel_dict) or not is_valid(language_dict):
-        raise ValueError(
-            "Both Channel and Language dicts should be a non-empty dict of strings."
+        error_message = (
+            "Both Channel and Language dicts should be a non-empty dict of strings"
         )
+        logger.error(error_message)
+        raise ValueError(error_message)
 
     return df.with_columns(
         [

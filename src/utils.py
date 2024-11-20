@@ -1,6 +1,7 @@
 import os
 import logging
 from pathlib import Path
+from typing import Dict
 
 FORMATTER = logging.Formatter(
     "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s"
@@ -46,3 +47,13 @@ def obtain_file_path(desired_file: str = "inputs.csv") -> str:
         raise FileNotFoundError(f"Target file, {desired_file}, not found.")
 
     return str(target_file_path.resolve())
+
+
+def is_valid(dictionary: Dict) -> bool:
+    return all(
+        key is not None
+        and isinstance(key, str)
+        and value is not None
+        and isinstance(value, str)
+        for key, value in dictionary.items()
+    )

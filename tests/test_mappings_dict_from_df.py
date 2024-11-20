@@ -12,6 +12,15 @@ def mappings_df():
     return df
 
 
+def test_filter_and_get_dict(mappings_df):
+    df = mappings_df
+
+    result = filter_and_get_dict(df=df, field_name="Channel")
+    expected = {"channel1": "Channel1", "channel2": "Channel2", "channel3": "Channel3"}
+
+    assert result == expected
+
+
 def test_dict_build(mappings_df):
     df = mappings_df
 
@@ -35,12 +44,3 @@ def test_dict_build(mappings_df):
         expected_language_dict,
         excepted_customfields_dict,
     )
-
-
-def test_filter_and_get_dict(mappings_df):
-    df = mappings_df
-
-    result = filter_and_get_dict(df=df, field_name="Channel")
-    expected = {"channel1": "Channel1", "channel2": "Channel2", "channel3": "Channel3"}
-
-    assert result == expected

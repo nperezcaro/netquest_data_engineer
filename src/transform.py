@@ -73,8 +73,8 @@ def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.Data
 
     return df.with_columns(
         df["CustomFields"]
-        .str.split(";")
-        .list.eval(pl.element().replace(old=mapping_dict))
-        .list.join(";")
+        .str.split(";")  # Split by ';'
+        .list.eval(pl.element().replace(old=mapping_dict))  # Map using the dict
+        .list.join(";")  # Join all back into a str
         .alias("CustomFieldsB")
     )

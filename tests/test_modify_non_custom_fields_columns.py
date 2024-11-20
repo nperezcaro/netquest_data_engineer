@@ -61,3 +61,34 @@ def test_empty_df():
         map_non_custom_fields_columns(
             df=df, channel_dict=channel_dict, language_dict=language_dict
         )
+
+
+def test_missing_columns():
+    data = {
+        "id": [1, 1, 1, 2, 3],
+        # Missing "Channel" column
+        "Language": ["en", "en_us", "en", "es", "es"],
+        "CustomFields": [
+            "Area=account;New=true",
+            "Area=account;New=true",
+            "Area=finance;New=false",
+            "Area=finance;Premium=premium-user;New=false",
+            "Area=customer;New=false",
+        ],
+        "Duration": ["1:23:14", "0:13:04", "0:37:21", "3:01:47", "1:56:34"],
+        "PointsGained": [57, 12, 30, 254, 71],
+    }
+
+    df = pl.DataFrame(data)
+
+    channel_dict = {
+        "channel1": "Channel1",
+        "channel2": "Channel2",
+        "channel3": "Channel3",
+    }
+    language_dict = {"en": "en-US", "en_us": "en-US", "es": "es-ES"}
+
+    with pytest.raises(ValueError):
+        map_non_custom_fields_columns(
+            df=df, channel_dict=channel_dict, language_dict=language_dict
+        )

@@ -45,3 +45,19 @@ def test_modify_non_custom_fields_columns(input_df):
     )
 
     assert_frame_equal(result_df, expected_df)
+
+
+def test_empty_df():
+    df = pl.DataFrame()
+
+    channel_dict = {
+        "channel1": "Channel1",
+        "channel2": "Channel2",
+        "channel3": "Channel3",
+    }
+    language_dict = {"en": "en-US", "en_us": "en-US", "es": "es-ES"}
+
+    with pytest.raises(ValueError):
+        map_non_custom_fields_columns(
+            df=df, channel_dict=channel_dict, language_dict=language_dict
+        )

@@ -97,7 +97,7 @@ def test_missing_columns():
 def test_invalid_dict():
     data = {
         "id": [1, 1, 1, 2, 3],
-        # Missing "Channel" column
+        "Channel": ["channel1", "channel1", "channel2", "channel3", "channel2"],
         "Language": ["en", "en_us", "en", "es", "es"],
         "CustomFields": [
             "Area=account;New=true",

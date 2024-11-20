@@ -51,3 +51,10 @@ def test_modify_custom_fields(input_df, custom_fields_mapping):
     result_df = map_custom_fields(df=input_df, mapping_dict=custom_fields_mapping)
 
     assert_frame_equal(result_df, excepted_df)
+
+
+def test_empty_df(custom_fields_mapping):
+    df = pl.DataFrame()
+
+    with pytest.raises(ValueError):
+        map_custom_fields(df=df, mapping_dict=custom_fields_mapping)

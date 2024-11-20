@@ -9,6 +9,23 @@ logger = get_logger(name="TRANSFORM")
 def map_non_custom_fields_columns(
     df: pl.DataFrame, channel_dict: Dict[str, str], language_dict: Dict[str, str]
 ) -> pl.DataFrame:
+    """
+    Modify the Channel and Language columns based on provided mappings.
+
+    Args:
+        df (pl.DataFrame): Input DataFrame with Channel and Language columns.
+        channel_dict (dict): Mapping dictionary for Channel.
+        language_dict (dict): Mapping dictionary for Language.
+
+    Returns:
+        pl.DataFrame: DataFrame with new columns 'ChannelB' and 'LanguageB'.
+
+    Raises:
+        ValueError: if
+            -the provided DataFrame is empty.
+            -the provided DataFrame does not contain Channel and Language columns.
+            -the provided mappings are not dicts where key and values are strings and not None.
+    """
     required_columns = ["Channel", "Language"]
 
     if df.is_empty():

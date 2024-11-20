@@ -23,8 +23,8 @@ def test_dict_build(mappings_df):
     expected_language_dict = {"en": "en-US", "en_us": "en-US", "es": "es-ES"}
     excepted_customfields_dict = {
         "Area=account": "area=Accounting",
-        "Area=finance": "Area=finance",
-        "Area=customer": "Area=customer",
+        "Area=finance": "area=Finance",
+        "Area=customer": "area=Customer_Care",
         "Premium=premium-user": "premium=VIP_User",
     }
 

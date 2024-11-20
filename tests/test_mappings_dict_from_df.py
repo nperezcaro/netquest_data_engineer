@@ -1,7 +1,7 @@
 import pytest
 import polars as pl
 from src.utils import obtain_file_path
-from src.extract import get_mappings_dict
+from src.extract import get_mappings_dict, filter_and_get_dict
 
 
 @pytest.fixture
@@ -35,3 +35,12 @@ def test_dict_build(mappings_df):
         expected_language_dict,
         excepted_customfields_dict,
     )
+
+
+def test_filter_and_get_dict(mappings_df):
+    df = mappings_df
+
+    result = filter_and_get_dict(df=df, field_name="Channel")
+    expected = {"channel1": "Channel1", "channel2": "Channel2", "channel3": "Channel3"}
+
+    assert result == expected

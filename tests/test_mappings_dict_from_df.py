@@ -51,3 +51,16 @@ def test_empty_df():
 
     with pytest.raises(ValueError):
         get_mappings_dict(df=df)
+
+
+def test_missing_columns():
+    data = {
+        "Field": ["Channel", "Language", "CustomFields"],
+        "SoftwareA": ["channel1", "en", "Area=account"],
+        # Missing "SoftwareB" column
+    }
+
+    df = pl.DataFrame(data)
+
+    with pytest.raises(ValueError):
+        get_mappings_dict(df=df)

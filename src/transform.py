@@ -188,7 +188,7 @@ def get_total_points_gained(df: pl.DataFrame) -> pl.DataFrame:
     This function sums the PointsGained over the id column.
 
     Args:
-        df (pl.DataFrame): Input DataFrame with PointsGained column.
+        df (pl.DataFrame): Input DataFrame with id and PointsGained columns.
 
     Returns:
         pl.DataFrame: DataFrame with new column 'TotalPointsGained'.
@@ -196,17 +196,17 @@ def get_total_points_gained(df: pl.DataFrame) -> pl.DataFrame:
     Raises:
         ValueError: if
             -the provided DataFrame is empty.
-            -the provided DataFrame does not contain PointsGained column.
+            -the provided DataFrame does not contain id and PointsGained columns.
     """
-    required_column = ["PointsGained"]
+    required_columns = ["id", "PointsGained"]
 
     if df.is_empty():
         error_message = "Provided Dataframe is empty"
         logger.error(error_message)
         raise ValueError(error_message)
 
-    if not all(column in df.columns for column in required_column):
-        error_message = f"Provided Dataframe must contain column: {required_column}"
+    if not all(column in df.columns for column in required_columns):
+        error_message = f"Provided Dataframe must contain column: {required_columns}"
         logger.error(error_message)
         raise ValueError(error_message)
 

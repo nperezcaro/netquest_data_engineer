@@ -1,3 +1,4 @@
+import pytest
 import polars as pl
 from polars.testing import assert_frame_equal
 
@@ -50,3 +51,10 @@ def test_handle_dimensions():
     output_df = handle_dimensions(df=input_df)
 
     assert_frame_equal(output_df, expected_df)
+
+
+def test_empty_df():
+    df = pl.DataFrame()
+
+    with pytest.raises(ValueError):
+        handle_dimensions(df=df)

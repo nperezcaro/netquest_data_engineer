@@ -43,7 +43,7 @@ def test_handle_dimensions():
                 "area=Finance;premium=VIP_User;New=false",
                 "area=Customer_Care;New=false",
             ],
-            "Duration": ["01:36:18", "00:37:21", "03:01:47", "01:56:34"],
+            "Duration": ["1:36:18", "0:37:21", "3:01:47", "1:56:34"],
             "PointsGained": [69, 30, 254, 71],
         }
     )

@@ -49,3 +49,24 @@ def test_empty_df():
 
     with pytest.raises(ValueError):
         get_total_points_gained(df=df)
+
+
+def test_missing_columns():
+    input_df = pl.DataFrame(
+        {
+            "id": [1, 1, 2, 3],
+            "Channel": ["Channel1", "Channel2", "Channel3", "Channel2"],
+            "Language": ["en-US", "en-US", "es-ES", "es-ES"],
+            "CustomFields": [
+                "area=Accounting;New=true",
+                "area=Finance;New=false",
+                "area=Finance;premium=VIP_User;New=false",
+                "area=Customer_Care;New=false",
+            ],
+            "Duration": ["01:36:18", "00:37:21", "03:01:47", "01:56:34"],
+            # Missing "PointsGained" column
+        }
+    )
+
+    with pytest.raises(ValueError):
+        get_total_points_gained(df=input_df)

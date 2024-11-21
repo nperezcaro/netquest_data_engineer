@@ -1,3 +1,4 @@
+import pytest
 import polars as pl
 from polars.testing import assert_frame_equal
 
@@ -41,3 +42,10 @@ def test_get_total_points_gained():
     result_df = get_total_points_gained(df=input_df)
 
     assert_frame_equal(result_df, excepted_df)
+
+
+def test_empty_df():
+    df = pl.DataFrame()
+
+    with pytest.raises(ValueError):
+        get_total_points_gained(df=df)

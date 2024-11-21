@@ -22,6 +22,7 @@ The code workflow is a follows:
 
     6. Finally the TotalPointsGained are calculated by summing the PointsGained over the id column.
 
+```mermaid
 graph TD
     A[Start: Read inputs.csv and mappings.csv into DataFrames] --> B[Create dictionaries from mappings DataFrame]
     B --> B1[Dictionary 1: Channel]
@@ -38,6 +39,7 @@ graph TD
     E --> F[Aggregate data: Sum facts based on dimension columns]
     F --> G[Calculate TotalPointsGained by summing PointsGained over id column]
     G --> H[Output final DataFrame]
+```
 
 ## Run the code
 ### Container

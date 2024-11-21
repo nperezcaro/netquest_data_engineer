@@ -81,8 +81,22 @@ def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.Data
 
 
 def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
+    required_columns = [
+        "Duration",
+        "id",
+        "ChannelB",
+        "LanguageB",
+        "CustomFieldsB",
+        "PointsGained",
+    ]
+
     if df.is_empty():
         error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    if not all(column in df.columns for column in required_columns):
+        error_message = f"Provided Dataframe must contain column: {required_columns}"
         logger.error(error_message)
         raise ValueError(error_message)
 

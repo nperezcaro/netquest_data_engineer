@@ -81,6 +81,11 @@ def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.Data
 
 
 def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
+    if df.is_empty():
+        error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
     duration_split_df = df.with_columns(
         # '^(\d+):' captures the digits before the first colon (hours)
         pl.col("Duration").str.extract(r"^(\d+):", 1).cast(pl.Int64).alias("hours"),

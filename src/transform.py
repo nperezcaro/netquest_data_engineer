@@ -127,7 +127,8 @@ def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
     dimensions_duration_df = unique_dimensions_df.with_columns(
         (
             # zfill(2) ensures that each component has two digits ("03" instead of "3")
-            (pl.col("TotalSeconds") // 3600).cast(pl.Int64).cast(pl.Utf8).str.zfill(2)
+            # hours only need one digit
+            (pl.col("TotalSeconds") // 3600).cast(pl.Int64).cast(pl.Utf8).str.zfill(1)
             + ":"
             + ((pl.col("TotalSeconds") % 3600) // 60)
             .cast(pl.Int64)

@@ -87,3 +87,4 @@ python main.py
 
 ## CI Pipeline
 The repository contains a CI Pipeline that will execute the tests and fail under a 85% coverage, is needed that it succeed in order to merge PRs into main.
+You can check the runs of this CI Pipeline in the 'Actions' tab (of the GitHub repo).

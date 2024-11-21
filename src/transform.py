@@ -54,6 +54,22 @@ def map_non_custom_fields_columns(
 
 
 def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.DataFrame:
+    """
+    Modify the CustomFields columnn based on provided mapping.
+
+    Args:
+        df (pl.DataFrame): Input DataFrame with Channel and Language columns.
+        mapping_dict (dict): Mapping dictionary for CustomFields.
+
+    Returns:
+        pl.DataFrame: DataFrame with new column 'CustomFieldsB'.
+
+    Raises:
+        ValueError: if
+            -the provided DataFrame is empty.
+            -the provided DataFrame does not contain CustomFields column.
+            -the provided mapping is not a dict where key and values are strings and not None.
+    """
     required_column = ["CustomFields"]
 
     if df.is_empty():
@@ -81,6 +97,20 @@ def map_custom_fields(df: pl.DataFrame, mapping_dict: Dict[str, str]) -> pl.Data
 
 
 def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    This function aggregates facts for rows where dimensions are equal.
+
+    Args:
+        df (pl.DataFrame): Input DataFrame with Duration, id, ChannelB, LanguageB, CustomFieldsB, PointsGained columns.
+
+    Returns:
+        pl.DataFrame: DataFrame with aggregated data.
+
+    Raises:
+        ValueError: if
+            -the provided DataFrame is empty.
+            -the provided DataFrame does not contain Duration, id, ChannelB, LanguageB, CustomFieldsB, PointsGained columns.
+    """
     required_columns = [
         "Duration",
         "id",
@@ -154,6 +184,20 @@ def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_total_points_gained(df: pl.DataFrame) -> pl.DataFrame:
+    """
+    This function sums the PointsGained over the id column.
+
+    Args:
+        df (pl.DataFrame): Input DataFrame with PointsGained column.
+
+    Returns:
+        pl.DataFrame: DataFrame with new column 'TotalPointsGained'.
+
+    Raises:
+        ValueError: if
+            -the provided DataFrame is empty.
+            -the provided DataFrame does not contain PointsGained column.
+    """
     required_column = ["PointsGained"]
 
     if df.is_empty():

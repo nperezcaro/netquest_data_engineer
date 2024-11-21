@@ -153,8 +153,15 @@ def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_total_points_gained(df: pl.DataFrame) -> pl.DataFrame:
+    required_column = ["PointsGained"]
+
     if df.is_empty():
         error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    if not all(column in df.columns for column in required_column):
+        error_message = f"Provided Dataframe must contain column: {required_column}"
         logger.error(error_message)
         raise ValueError(error_message)
 

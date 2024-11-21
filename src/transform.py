@@ -150,3 +150,12 @@ def handle_dimensions(df: pl.DataFrame) -> pl.DataFrame:
             "CustomFieldsB": "CustomFields",
         }
     )
+
+
+def get_total_points_gained(df: pl.DataFrame) -> pl.DataFrame:
+    if df.is_empty():
+        error_message = "Provided Dataframe is empty"
+        logger.error(error_message)
+        raise ValueError(error_message)
+
+    return df.with_columns(TotalPointsGained=pl.col("PointsGained").sum().over("id"))

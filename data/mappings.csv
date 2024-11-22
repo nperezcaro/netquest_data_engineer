@@ -1,0 +1,11 @@
+﻿Field;SoftwareA;SoftwareB
+Channel;channel1;Channel1
+Channel;channel2;Channel2
+Channel;channel3;Channel3
+Language;en;en-US
+Language;en_us;en-US
+Language;es;es-ES
+CustomFields;Area=account;area=Accounting
+CustomFields;Area=finance;area=Finance
+CustomFields;Area=customer;area=Customer_Care
+CustomFields;Premium=premium-user;premium=VIP_User
